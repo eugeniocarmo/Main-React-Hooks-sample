@@ -1,0 +1,13 @@
+//fixing fragment error
+// Copy and paste code below again - Stackblitz bug
+
+
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment"
+  }
+}
+
+
