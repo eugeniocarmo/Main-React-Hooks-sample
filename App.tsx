@@ -10,6 +10,10 @@ export default function App() {
       <p> </p>
       <ContadorUS />
       <p>....</p>
+      <Counter />
+      <p>....</p>
+      <Name />
+      <p>....</p>
       <b>USE EFFECT React Hook</b>
       <p> Veja tbem o console</p>
       <ContadorUE />
@@ -22,8 +26,6 @@ export default function App() {
     </>
   );
 }
-
-
 
 //USESTATE REACT HOOK
 // Usando o component CustomButton como contador
@@ -60,6 +62,37 @@ const ContadorUS: React.FC = () => {
   );
 };
 
+// Second compponet
+
+const Counter: React.FC = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <div>Segundo Contador: {count}</div>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+    </div>
+  );
+};
+
+// third component
+
+const Name = () => {
+  const [name, setName] = useState('React');
+
+  return (
+    <div>
+      Hello {name}
+      <button
+        onClick={() => (name === 'React' ? setName('Hooks') : setName('React'))}
+      >
+        Change State
+      </button>
+    </div>
+  );
+};
+
 // USEEFFECT REACT HOOK - (15:28)
 // Hook de efeitos colaterais. É uma função.
 // - Pode ser usado para qdo agente inicializa o componente
@@ -77,9 +110,8 @@ const ContadorUS: React.FC = () => {
 // - eg: o contador tá armazenado no servidor e precisamos do valor certo
 //    do useState do contador e altera para o valor correto dele.
 // Vai dar problema se passar para o contador setCount(count + 1)
-// Ele só vai executar novamente depois que o [count] 
+// Ele só vai executar novamente depois que o [count]
 // - dentro do array de dependências for alterado.
-
 
 // COMPONENT COM USEEFFECT
 // Eg: quando eu quiser fazer efeitos em cima de um tipo de interação
@@ -125,7 +157,7 @@ const ContadorUE: React.FC = () => {
 // Temos que somar de uma forma correta com arrow function eg:
 //   - setCount( () => { OldCount})  e return oldCount + 1;
 //   - assim pode passar uma função e passar o state s/ array de dependência
-// assim: 
+// assim:
 // const somar = useCallback(() => {
 //   setCount((oldCount) => {
 //     return oldCount + 1;
@@ -134,11 +166,11 @@ const ContadorUE: React.FC = () => {
 // O somar inicializa o useCallback
 // IMPORTANTE
 // veja explicação de tudo (32:20)
-// O const = somar do useCallback é como o valor do useState(0) na memoria ////  - Ele só vai alterar isso 
+// O const = somar do useCallback é como o valor do useState(0) na memoria ////  - Ele só vai alterar isso
 //  - quando o array de dependência for alterado [] - Assim,
 //  - Ele destroi o que tinha na memoria qdo usa-se o array de dependência []
 //  - e reconstroi tudo com o novo valor.
-// Cuidado se tiver 2 useStates. 
+// Cuidado se tiver 2 useStates.
 // Só da pra pegar o valor do state que faz o set
 // Talvez precise colocar o valor no array de dependência
 // Não dá pra recuperar o valor de outros estados caso eles foram alterados
@@ -171,7 +203,6 @@ const ContadorCB: React.FC = () => {
   );
 };
 
-
 //USE MEMO REACT HOOK (33:37)
 // Você guarda uma função na memoria. Praticamente o mesmo como o useCallback
 // Pode ente-lo como um computed value
@@ -181,17 +212,17 @@ const ContadorCB: React.FC = () => {
 //   return count * 2
 // }, []);
 
-// Qdo iniciar o fluxo de render do código - 
-// - O userEffect roda. 
+// Qdo iniciar o fluxo de render do código -
+// - O userEffect roda.
 // - O useCallback guarda a função na memória
 // - E o useMemo vai executar a função e guardar o valor da função na memória
 // - ele vai guardar o count * 2 !!!!
 // - ele não refletir o número na tela se não iniciar o array de dependência
 // - resumindo, o useMemo é um valor computado!!!!
-// - lembre que toda vez que alterar o valor do [] dependência, muda o valor 
+// - lembre que toda vez que alterar o valor do [] dependência, muda o valor
 // - Se quiser para de retornar é tirar tirar o cont do []
 // Outra idéia seria solucionar o problema com uma lista de objetos
-// - pode ajudar em fazer transformação de dados (37:42) 
+// - pode ajudar em fazer transformação de dados (37:42)
 // - uma lista com os atributos errados.
 // - retorna objeto [] ao invés de numérico
 
@@ -209,7 +240,7 @@ const ContadorUM: React.FC = () => {
   }, []);
 
   const countx2 = useMemo(() => {
-    return count * 2
+    return count * 2;
   }, [count]);
 
   return (
@@ -226,10 +257,6 @@ const ContadorUM: React.FC = () => {
     </>
   );
 };
-
-
-
-
 
 // Notas extras ------------------------
 // Os components de classes não são mais usados e eles não precisariam dos Hooks
